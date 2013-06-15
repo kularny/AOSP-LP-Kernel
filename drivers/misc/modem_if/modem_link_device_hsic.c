@@ -670,6 +670,7 @@ static void link_pm_runtime_start(struct work_struct *work)
 	}
 }
 
+#if 0
 static void link_pm_force_cp_dump(struct link_pm_data *pm_data)
 {
 	struct modem_ctl *mc = if_usb_get_modemctl(pm_data);
@@ -689,6 +690,7 @@ static void link_pm_force_cp_dump(struct link_pm_data *pm_data)
 		gpio_set_value(mc->gpio_ap_dump_int, 0);
 	}
 }
+#endif
 
 static void link_pm_change_modem_state(struct link_pm_data *pm_data,
 						enum modem_state state)
@@ -1120,7 +1122,7 @@ static void if_usb_disconnect(struct usb_interface *intf)
 {
 	struct if_usb_devdata *devdata = usb_get_intfdata(intf);
 	struct link_pm_data *pm_data = devdata->usb_ld->link_pm_data;
-	struct device *dev, *hdev;
+	struct device *hdev;
 	struct link_device *ld = &devdata->usb_ld->ld;
 
 	mif_info("\n");
