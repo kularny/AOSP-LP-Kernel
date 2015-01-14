@@ -10,7 +10,6 @@
  *
  ****************************************************************************/
 
-
 #include "mcdriver_AA.h"
 #include "mcdriver.h"
 #include "mcservice.h"
@@ -22,8 +21,6 @@
 #if MCDRV_DEBUG_LEVEL
 #include "mcdebuglog.h"
 #endif
-
-
 
 #define	MCDRV_MAX_WAIT_TIME	((UINT32)0x0FFFFFFF)
 
@@ -80,8 +77,7 @@ static SINT32	CheckDIODIR				(const MCDRV_DIO_INFO*	psDioInfo, UINT8 bPort, UINT
 static SINT32	CheckDIODIT				(const MCDRV_DIO_INFO*	psDioInfo, UINT8 bPort, UINT8 bInterface);
 
 static SINT32	SetVol					(UINT32 dUpdate, MCDRV_VOLUPDATE_MODE eMode, UINT32* pdSVolDoneParam);
-static	SINT32	PreUpdatePath			(UINT16* pwDACMuteParam, UINT16* pwDITMuteParam);
-
+static SINT32	PreUpdatePath			(UINT16* pwDACMuteParam, UINT16* pwDITMuteParam);
 
 /****************************************************************************
  *	init
@@ -1715,7 +1711,7 @@ static	SINT32	getset_gp
 		return MCDRV_ERROR;
 	}
 
-	if(sGPMode.abGpDdr[dPadNo] == MCDRV_GPDDR_IN)
+	if(sGPMode.abGpDdr[dPadNo] >= MCDRV_GPDDR_IN)
 	{
 		bSlaveAddr	= McDevProf_GetSlaveAddr(eMCDRV_SLAVE_ADDR_DIG);
 		abData[0]	= MCI_BASE_ADR<<1;
@@ -3456,7 +3452,6 @@ static SINT32	ValidateDioParam
 
 	return sdRet;
 }
-
 
 /****************************************************************************
  *	CheckDIOCommon
