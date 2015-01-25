@@ -521,7 +521,7 @@ extern int bioset_integrity_create(struct bio_set *, int);
 extern void bioset_integrity_free(struct bio_set *);
 extern void bio_integrity_init(void);
 
-#else /* CONFIG_BLK_DEV_INTEGRITY */
+#elif !defined(CONFIG_BLK_DEV_INTEGRITY) /* CONFIG_BLK_DEV_INTEGRITY */
 
 #define bio_integrity(a)		(0)
 #define bioset_integrity_create(a, b)	(0)
