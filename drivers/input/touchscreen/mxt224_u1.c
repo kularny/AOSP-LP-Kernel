@@ -434,7 +434,6 @@ static void mxt224_ta_probe(bool ta_status)
 	unsigned int register_address = 7;
 	/*u8 calcfg; */
 	u8 noise_threshold;
-	u8 movfilter;
 	u8 calcfg_dis;
 	u8 calcfg_en;
 	u8 charge_time;
@@ -1107,7 +1106,7 @@ static int __devinit mxt224_init_touch_driver(struct mxt224_data *data)
 {
 	struct object_t *object_table;
 	u32 read_crc = 0;
-	u32 calc_crc;
+	u32 calc_crc = 0;
 	u16 crc_address;
 	u16 dummy;
 	int i;
@@ -1491,7 +1490,7 @@ static int Check_Err_Condition(void)
 
 static void median_err_setting(void)
 {
-	u16 obj_address;
+	u16 obj_address = 0;
 	u16 size_one;
 	u8 value, state;
 	bool ta_status_check;
