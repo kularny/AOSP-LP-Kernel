@@ -15,8 +15,4 @@
 
 #include <plat/system-reset.h>
 
-static void arch_idle(void)
-{
-	/* nothing here yet */
-}
 #endif /* __ASM_ARCH_SYSTEM_H */
