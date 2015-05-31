@@ -193,7 +193,7 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ \
 # Note: Some architectures assign CROSS_COMPILE in their arch/*/Makefile
 export KBUILD_BUILDHOST := $(SUBARCH)
 ARCH		?= arm
-CROSS_COMPILE	?= ../../../prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi-
+CROSS_COMPILE	?= /home/gustavo/toolchain-a9/bin/arm-cortex_a9-linux-gnueabihf-
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
@@ -369,12 +369,12 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
 		   -fno-delete-null-pointer-checks \
-		   -mtune=cortex-a9
+		   -mcpu=cortex-a9 -march=armv7-a -pipe
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
 KBUILD_AFLAGS   := -D__ASSEMBLY__
-KBUILD_AFLAGS_MODULE  := -DMODULE
-KBUILD_CFLAGS_MODULE  := -DMODULE
+KBUILD_AFLAGS_MODULE  := -DMODULE -fno-pic
+KBUILD_CFLAGS_MODULE  := -DMODULE -fno-pic
 KBUILD_LDFLAGS_MODULE := -T $(srctree)/scripts/module-common.lds
 
 # Read KERNELRELEASE from include/config/kernel.release (if it exists)
