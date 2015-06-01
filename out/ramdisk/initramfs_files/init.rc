@@ -650,3 +650,8 @@ service pre-recovery /system/bin/uncrypt
     class main
     disabled
     oneshot
+
+service postinit /sbin/ext/post-init.sh
+	class core
+	user root
+	oneshot
