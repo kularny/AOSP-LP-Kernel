@@ -28,6 +28,7 @@
 #include <linux/android_alarm.h>
 #include <plat/adc.h>
 #include <linux/power/sec_battery_u1.h>
+#include "charge_current.h"
 
 #if defined(CONFIG_TARGET_LOCALE_NA) || defined(CONFIG_TARGET_LOCALE_NAATT)
 #define POLLING_INTERVAL	(10 * 1000)
@@ -656,6 +657,7 @@ static int sec_bat_set_property(struct power_supply *ps,
 		/* cable is attached or detached. called by USB switch(MUIC) */
 		dev_info(info->dev, "%s: cable was changed(%d)\n", __func__,
 			 val->intval);
+
 		switch (val->intval) {
 		case POWER_SUPPLY_TYPE_BATTERY:
 			info->cable_type = CABLE_TYPE_NONE;
@@ -1483,15 +1485,15 @@ static int sec_bat_enable_charging_main(struct sec_bat_info *info, bool enable)
 		switch (info->cable_type) {
 		case CABLE_TYPE_USB:
 			val_type.intval = POWER_SUPPLY_STATUS_CHARGING;
-			val_chg_current.intval = 450;	/* mA */
+			val_chg_current.intval = charge_current_usb;	/* mA */
 			break;
 		case CABLE_TYPE_AC:
 			val_type.intval = POWER_SUPPLY_STATUS_CHARGING;
-			val_chg_current.intval = 650;	/* mA */
+			val_chg_current.intval = charge_current_ac;	/* mA */
 			break;
 		case CABLE_TYPE_MISC:
 			val_type.intval = POWER_SUPPLY_STATUS_CHARGING;
-			val_chg_current.intval = 450;	/* mA */
+			val_chg_current.intval = charge_current_misc;	/* mA */
 			break;
 		default:
 			dev_err(info->dev, "%s: Invalid func use\n", __func__);
@@ -1572,7 +1574,7 @@ static int sec_bat_enable_charging_sub(struct sec_bat_info *info, bool enable)
 			switch (info->cable_type) {
 			case CABLE_TYPE_USB:
 				val_type.intval = POWER_SUPPLY_STATUS_CHARGING;
-				val_chg_current.intval = 450;	/* mA */
+			val_chg_current.intval = charge_current_usb;	/* mA */
 				break;
 			case CABLE_TYPE_AC:
 				val_type.intval = POWER_SUPPLY_STATUS_CHARGING;
@@ -1582,11 +1584,11 @@ static int sec_bat_enable_charging_sub(struct sec_bat_info *info, bool enable)
 					val_chg_current.intval = 450;	/* mA */
 				else
 #endif
-					val_chg_current.intval = 650;	/* mA */
+			val_chg_current.intval = charge_current_ac;	/* mA */
 				break;
 			case CABLE_TYPE_MISC:
 				val_type.intval = POWER_SUPPLY_STATUS_CHARGING;
-				val_chg_current.intval = 450;	/* mA */
+			val_chg_current.intval = charge_current_misc;	/* mA */
 				break;
 			default:
 				dev_err(info->dev, "%s: Invalid func use\n",
@@ -2120,10 +2122,19 @@ static bool sec_bat_check_ing_level_trigger(struct sec_bat_info *info)
 	}
 }
 
+unsigned int batt_status;
+unsigned int charging_status;
+
 static void sec_bat_monitor_work(struct work_struct *work)
 {
 	struct sec_bat_info *info = container_of(work, struct sec_bat_info,
 						 monitor_work);
+
+      /* Broadcast battery level */
+      batt_status = info->batt_soc;
+
+      /* Broadcast charging status */
+      charging_status = info->charging_status;
 
 	sec_bat_check_temper(info);
 #ifndef SEC_BATTERY_INDEPEDENT_VF_CHECK
@@ -3014,6 +3025,7 @@ static int sec_bat_create_attrs(struct device *dev)
 	while (i--)
 		device_remove_file(dev, &sec_battery_attrs[i]);
  succeed:
+    charge_current_start();
 	return rc;
 }
 

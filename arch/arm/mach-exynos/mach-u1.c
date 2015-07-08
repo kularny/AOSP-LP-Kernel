@@ -826,7 +826,6 @@ static int m5mo_flash_power(int enable)
 		if (regulator_is_enabled(movie))
 			regulator_disable(movie);
 	}
-torch_exit:
 	regulator_put(flash);
 	regulator_put(movie);
 
@@ -3095,7 +3094,7 @@ REGULATOR_INIT(ldo17, "VTF_2.8V", 2800000, 2800000, 0,
 REGULATOR_INIT(ldo18, "TOUCH_LED_3.3V", 3300000, 3300000, 0,
 		REGULATOR_CHANGE_STATUS, 1);
 #else
-REGULATOR_INIT(ldo18, "TOUCH_LED_3.3V", 3000000, 3300000, 0,
+REGULATOR_INIT(ldo18, "TOUCH_LED_3.3V", 2500000, 3300000, 0,
 	REGULATOR_CHANGE_STATUS | REGULATOR_CHANGE_VOLTAGE, 1);
 #endif
 REGULATOR_INIT(ldo21, "VDDQ_M1M2_1.2V", 1200000, 1200000, 1,
@@ -3143,8 +3142,8 @@ static struct regulator_init_data buck2_init_data = {
 static struct regulator_init_data buck3_init_data = {
 	.constraints	= {
 		.name		= "G3D_1.1V",
-		.min_uV		= 900000,
-		.max_uV		= 1200000,
+		.min_uV		= 800000,
+		.max_uV		= 1400000,
 		.always_on	= 0,
 		.boot_on	= 0,
 		.apply_uV	= 1,
@@ -4604,9 +4603,7 @@ static struct sec_bat_adc_table_data temper_table_ADC7[] =  {
 	{ 1669,	 -60 },
 	{ 1688,	 -70 },
 };
-#endif
-/* temperature table for ADC 7 */
-#ifdef CONFIG_TARGET_LOCALE_NA
+#elif defined(CONFIG_TARGET_LOCALE_NA)
 static struct sec_bat_adc_table_data  temper_table_ADC7[] =  {
 	{  145,  670 },
 	{  165,  660 },
@@ -4821,6 +4818,7 @@ static unsigned int sec_bat_get_lpcharging_state(void)
 	return val;
 }
 
+#if defined(CONFIG_MACH_Q1_BD)
 static void sec_bat_initial_check(void)
 {
 	pr_info("%s: connected_cable_type:%d\n",
@@ -4828,6 +4826,7 @@ static void sec_bat_initial_check(void)
 	if (connected_cable_type != CABLE_TYPE_NONE)
 		max8997_muic_charger_cb(connected_cable_type);
 }
+#endif
 
 static struct sec_bat_platform_data sec_bat_pdata = {
 	.fuel_gauge_name	= "fuelgauge",
@@ -5483,6 +5482,14 @@ static void mxt224_power_off(void)
 	s3c_gpio_setpull(GPIO_TSP_LDO_ON, S3C_GPIO_PULL_NONE);
 	gpio_set_value(GPIO_TSP_LDO_ON, 0);
 	/* printk("mxt224_power_off is finished\n"); */
+}
+
+void mxt224_gpio_sleep_mode(bool enable)
+{
+	if (enable)
+		s3c_gpio_slp_cfgpin(GPIO_TSP_LDO_ON, S3C_GPIO_SLP_PREV);
+	else
+		s3c_gpio_slp_cfgpin(GPIO_TSP_LDO_ON, S3C_GPIO_SLP_OUT0);
 }
 
 /*

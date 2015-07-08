@@ -348,6 +348,7 @@ static void exynos4_poll_cur_temp(struct work_struct *work)
 	mutex_unlock(&tmu_lock);
 }
 
+#ifdef CONFIG_TMU_DEBUG
 static ssize_t tmu_show_print_state(struct device *dev,
 	struct device_attribute *attr, char *buf)
 {
@@ -379,6 +380,7 @@ static ssize_t tmu_store_print_state(struct device *dev,
 }
 static DEVICE_ATTR(print_state, S_IRUGO | S_IWUSR,\
 	tmu_show_print_state, tmu_store_print_state);
+#endif
 
 void set_refresh_rate(unsigned int auto_refresh)
 {
@@ -974,7 +976,7 @@ static irqreturn_t exynos4x12_tmu_irq_handler(int irq, void *id)
 	disable_irq_nosync(irq);
 
 	status = __raw_readl(info->tmu_base + EXYNOS4_TMU_INTSTAT) & 0x1FFFF;
-	pr_info("EXYNOS4x12_tmu interrupt: INTSTAT = 0x%08x\n", status);
+	/* pr_info("EXYNOS4x12_tmu interrupt: INTSTAT = 0x%08x\n", status); */
 
 	/* To handle multiple interrupt pending,
 	 * interrupt by high temperature are serviced with priority.

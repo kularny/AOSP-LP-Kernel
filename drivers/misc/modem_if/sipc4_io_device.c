@@ -819,6 +819,7 @@ exit:
 	return err;
 }
 
+#ifdef CONFIG_IPC_CMC22x_OLD_RFS
 static int rx_rfs_packet(struct io_device *iod, struct link_device *ld,
 					const char *data, unsigned size)
 {
@@ -867,6 +868,7 @@ static int rx_rfs_packet(struct io_device *iod, struct link_device *ld,
 
 	return err;
 }
+#endif
 
 /* called from link device when a packet arrives for this io device */
 static int io_dev_recv_data_from_link_dev(struct io_device *iod,

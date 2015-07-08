@@ -1224,7 +1224,9 @@ done:
 int s5p_usb_phy_resume(struct platform_device *pdev, int type)
 {
 	int ret = 0;
+	#if 0
 	u32 phyclk;
+	#endif
 
 	if (exynos_usb_phy_clock_enable(pdev))
 		return 0;

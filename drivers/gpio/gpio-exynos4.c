@@ -65,7 +65,9 @@ static struct s3c_gpio_cfg gpio_cfg_noint = {
  * Note: The initialization of 'base' member of s3c_gpio_chip structure
  * uses the above macro and depends on the banks being listed in order here.
  */
+#ifdef CONFIG_MACH_MIDAS
 static struct s3c_gpio_pm s3c_gpio_pm_nop = { NULL, NULL };
+#endif
 
 static struct s3c_gpio_chip exynos4_gpio_common_4bit[] = {
 	{

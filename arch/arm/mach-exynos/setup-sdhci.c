@@ -35,7 +35,9 @@ void exynos4_setup_sdhci_cfg_card(struct platform_device *dev, void __iomem *r,
 				  struct mmc_ios *ios, struct mmc_card *card)
 {
 	u32 ctrl2, ctrl3;
+	#if 0
 	struct s3c_sdhci_platdata *pdata = dev->dev.platform_data;
+	#endif
 
 	/* don't need to alter anything according to card-type */
 
