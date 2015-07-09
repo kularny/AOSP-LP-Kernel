@@ -24,8 +24,8 @@ file /stage1/init source/out/ramdisk/init 755 0 0
 dir /sys 755 0 0
 dir /mnt 755 0 0
 dir /mnt/.lfs 755 0 0
-file /stage1/boot.cpio ../../../ramdisk.cpio 644 0 0
-file /stage1/recovery.cpio ../../../ramdisk-recovery.cpio 644 0 0
+file /stage1/boot.cpio source/out/ramdisk/boot.cpio 644 0 0
+file /stage1/recovery.cpio ../../ramdisk-recovery.cpio 644 0 0
 file /res/systemcat source/out/ramdisk/initramfs_files/res/systemcat 744 0 0
 file /res/systemstatus source/out/ramdisk/initramfs_files/res/systemstatus 744 0 0
 file /res/lights.exynos4.so source/out/ramdisk/initramfs_files/res/lights.exynos4.so 755 0 0
