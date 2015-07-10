@@ -1,8 +1,8 @@
 VERSION = 3
 PATCHLEVEL = 0
 SUBLEVEL = 101
-EXTRAVERSION =
-NAME = Sodden Ben Lomond
+EXTRAVERSION =r1
+NAME = ArnY
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
