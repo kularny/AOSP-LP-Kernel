@@ -2431,9 +2431,17 @@ static int check_modinfo(struct module *mod, struct load_info *info)
 		if (err)
 			return err;
 	} else if (!same_magic(modmagic, vermagic, info->index.vers)) {
-		printk(KERN_ERR "%s: version magic '%s' should be '%s'\n",
-		       mod->name, modmagic, vermagic);
-		return -ENOEXEC;
+		/*
+		 * Ignore kernel module version magic mismatches.
+		 * This hack is needed to make the patched kernel load
+		 * kernel modules from the official CyanogenMod build.
+		 */
+			/* printk(KERN_ERR "%s: version magic '%s' should be '%s'\n",
+			       mod->name, modmagic, vermagic);
+			return -ENOEXEC; */
+			printk(KERN_WARNING "%s: ignoring version magic mismatch,"
+			" version magic '%s' should be '%s'\n",
+			mod->name, modmagic, vermagic);
 	}
 
 	if (get_modinfo(info, "staging")) {

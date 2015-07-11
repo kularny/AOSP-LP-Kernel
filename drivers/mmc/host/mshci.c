@@ -2045,11 +2045,17 @@ int mshci_add_host(struct mshci_host *host)
 	mmc->ops = &mshci_ops;
 	mmc->f_min = 400000;
 	mmc->f_max = host->max_clk;
-#ifdef CONFIG_MACH_U1
-	mmc->caps |= MMC_CAP_SDIO_IRQ;
-#else
+	/*
+	 * BrickbugAftermath:
+	 * Revert suppression of ERASE/TRIM/DISCARD eMMC commands.
+	 * 
+	 * Current kernel bugfix status:
+	 * -Brickbug: has fix
+	 * -MAG2GA TRIM bug: has fix
+	 * -Wear Leveling bug: HAS NO FIX
+	 */
+	/* mmc->caps |= MMC_CAP_SDIO_IRQ; */
 	mmc->caps |= MMC_CAP_SDIO_IRQ | MMC_CAP_ERASE;
-#endif
 
 	mmc->caps |= MMC_CAP_4_BIT_DATA;
 
