@@ -210,6 +210,7 @@ struct mmc_card {
 #define MMC_QUIRK_BLK_NO_CMD23	(1<<7)		/* Avoid CMD23 for regular multiblock */
 /* MoviNAND secure issue */
 #define MMC_QUIRK_LONG_READ_TIME (1<<10)	/* Data read time > CSD says */
+#define MMC_QUIRK_SAMSUNG_WL_PATCH	(1<<8)	/* Patch Samsung FW to fix wear leveling bug */
 #define MMC_QUIRK_SEC_ERASE_TRIM_BROKEN (1<<11)	/* Skip secure for erase/trim */
 
 	unsigned int    poweroff_notify_state;	/* eMMC4.5 notify feature */
@@ -442,5 +443,6 @@ extern void mmc_unregister_driver(struct mmc_driver *);
 
 extern void mmc_fixup_device(struct mmc_card *card,
 			     const struct mmc_fixup *table);
+extern void mmc_fixup_samsung_fw(struct mmc_card *card);
 
 #endif
