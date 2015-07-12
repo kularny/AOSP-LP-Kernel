@@ -2052,7 +2052,7 @@ int mshci_add_host(struct mshci_host *host)
 	 * Current kernel bugfix status:
 	 * -Brickbug: has fix
 	 * -MAG2GA TRIM bug: has fix
-	 * -Wear Leveling bug: HAS NO FIX
+	 * -Wear Leveling bug: has fix
 	 */
 	/* mmc->caps |= MMC_CAP_SDIO_IRQ; */
 	mmc->caps |= MMC_CAP_SDIO_IRQ | MMC_CAP_ERASE;
