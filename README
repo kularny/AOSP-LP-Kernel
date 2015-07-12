@@ -3,21 +3,21 @@
 
 ***Instructions on how to compile the kernel***
 
-#Make Ramdisk with Synapse Support.
+#Make Ramdisk with Synapse Support
 1> Go to the 'Create Synapse Ramdisk' directory. Instructions & all necessary files are there.
 
-#Make Ramdisk without Synapse Support.
+#Make Ramdisk without Synapse Support
 1> Go to 'out/ramdisk' and open the 'i9100.list file'.
 2> Replace the line 'file /stage1/boot.cpio source/out/ramdisk/boot.cpio 644 0 0' with 'file /stage1/boot.cpio ../../ramdisk.cpio 644 0 0'. Save it.
 
 
 #How to compile the kernel
 1> Only inline building supported. Build.sh script won't work as the kernel is now modified to work completely inline.
-2> Kernel must be built along with ROM
+2> Kernel must be built along with ROM.
 
 
 #Manual Compilation
-1> Copy the 'arm-cortex-a9' directory from 'toolchain' to 'prebuilts/gcc/linux-x86/arm' directory
+1> Copy the 'arm-cortex-a9' directory from 'toolchain' to 'prebuilts/gcc/linux-x86/arm' directory.
 2> Go to 'build' directory and open 'envsetup.sh'.
-3> Find the line '# Legacy toolchain configuration used for ARM kernel compilation' and under that replace the line with 'toolchaindir=arm/arm-cortex-a9/bin'
+3> Find the line '# Legacy toolchain configuration used for ARM kernel compilation' and under that replace the line with 'toolchaindir=arm/arm-cortex-a9/bin'.
 4> Now you can start building the kernel along with ROM in inline mode.
