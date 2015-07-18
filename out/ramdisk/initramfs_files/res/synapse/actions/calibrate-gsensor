@@ -1,2 +1,0 @@
-echo "1" > /sys/devices/virtual/sec/gsensorcal/calibration
-echo "The G-Sensor is calibrated."
