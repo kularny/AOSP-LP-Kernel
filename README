@@ -3,7 +3,10 @@
 
 ***Instructions on how to compile the kernel***
 
-#Make Ramdisk with Synapse Support
+#Default Settings
+By default, Synapse support is removed due to bugs & kernel will build 100% inline.
+
+#Make Ramdisk with Synapse Support (WARNING - Synapse is currently broken & is not recommended for use)
 1> Go to the 'Create Synapse Ramdisk' directory. Instructions & all necessary files are there.
 
 #Make Ramdisk without Synapse Support
