@@ -9,8 +9,8 @@ cat << CTAG
 	{ SSeekBar:{
 		title:"ZRAM",
 		description:"This will enable ZRAM and create a swap partition on it.",
-                min:0, max:384, unit:" MB", step:32,
-                default:0,
+                min:256, max:512, unit:" MB", step:1,
+                default:300,
                 action:"zram zram0"
 	}},
     { SCheckBox:{

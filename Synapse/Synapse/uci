@@ -1,12 +1,12 @@
 #!/system/bin/sh
 
-CONFIG_JSON=/res/synapse/config.json;
-ACTION_SCRIPTS=/res/synapse/actions/;
+CONFIG_JSON=/system/Synapse/synapse/config.json;
+ACTION_SCRIPTS=/system/Synapse/synapse/actions/;
 
 if [ ! -f $CONFIG_JSON ]; then
   mount -t rootfs -o rw,remount rootfs;
   chmod -R 755 $ACTION_SCRIPTS;
-  source /res/synapse/config.json.generate > $CONFIG_JSON;
+  source /system/Synapse/synapse/config.json.generate > $CONFIG_JSON;
   mount -t rootfs -o ro,remount rootfs;
 fi;
 
