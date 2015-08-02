@@ -4,7 +4,7 @@
 ***Instructions on how to compile the kernel***
 
 #How to compile the kernel
-1> Only inline building supported. Build.sh script won't work as the kernel is now modified to work completely inline.
+1> Only inline building is supported. Manual building of kernel won't work as the kernel is now modified to work completely inline.
 2> Kernel must be built along with ROM.
 
 
