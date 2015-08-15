@@ -1,2 +1,2 @@
 # Synapse
--include vendor/du/config/common_synapse.mk
+-include vendor/xxx/config/common_synapse.mk
