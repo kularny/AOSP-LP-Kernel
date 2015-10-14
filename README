@@ -9,7 +9,10 @@
 
 
 #Manual Compilation
-1> Copy the 'arm-cortex-a9' directory from 'toolchain' to 'prebuilts/gcc/linux-x86/arm' directory.
-2> Go to 'build' directory and open 'envsetup.sh'.
-3> Find the line '# Legacy toolchain configuration used for ARM kernel compilation' and under that replace the line with 'toolchaindir=arm/arm-cortex-a9/bin'.
-4> Now you can start building the kernel along with ROM in inline mode.
+1> Copy the following lines to BoardConfig.mk in the i9100 device tree.
+
+# Kernel Toolchain
+KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/kernel/samsung/smdk4412/toolchain/arm-cortex-a9/bin
+KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
+
+2> Now start building the kernel along with ROM in inline mode.
