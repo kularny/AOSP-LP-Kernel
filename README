@@ -1,5 +1,5 @@
 *****WARNING*****
-#INLINE BUILDING ONLY
+INLINE BUILDING ONLY
 
 ***Instructions on how to compile the kernel***
 1> Copy the following lines to BoardConfig.mk in the i9100 device tree.
