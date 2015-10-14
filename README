@@ -2,13 +2,6 @@
 #INLINE BUILDING ONLY
 
 ***Instructions on how to compile the kernel***
-
-#How to compile the kernel
-1> Only inline building is supported. Manual building of kernel won't work as the kernel is now modified to work completely inline.
-2> Kernel must be built along with ROM.
-
-
-#Manual Compilation
 1> Copy the following lines to BoardConfig.mk in the i9100 device tree.
 
 # Kernel Toolchain
